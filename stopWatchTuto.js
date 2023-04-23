@@ -19,10 +19,11 @@ let milliSeconds = 0, seconds = 0, minutes = 0, hours = 0;
 //  }
 
 const stopWatchFunction = () => {
-    milliSeconds += 1;
-    if (milliSeconds === 1000) {
-        milliSeconds = 0;
+
+    milliSeconds += 10;
+    if (milliSeconds == 1000) {
         seconds += 1;
+        milliSeconds = 0;
 
         if (seconds === 60) {
             seconds = 0;
@@ -36,7 +37,7 @@ const stopWatchFunction = () => {
     }
 
     if ( milliSeconds < 10) {
-        const milliSecondText1 = '00' + milliSeconds.toString();
+        const milliSecondText1 = '0' + milliSeconds.toString();
         spanTag.textContent = milliSecondText1;
     } else if (milliSeconds >= 10 && milliSeconds < 100) {
         const milliSecondText2 = '0' + milliSeconds.toString();
@@ -58,7 +59,7 @@ const stopWatchFunction = () => {
  let intervalId; // global scope
  startBtn.addEventListener('click',() => {
     clearInterval(intervalId);
-    intervalId = setInterval(stopWatchFunction,1);  // returns-non zero number
+    intervalId = setInterval(stopWatchFunction,10);  // returns-non zero number
  })
 
 pauseBtn.addEventListener('click',() => {
@@ -67,13 +68,14 @@ pauseBtn.addEventListener('click',() => {
 
 continueBtn.addEventListener('click',() => {
     clearInterval(intervalId);
-    intervalId = setInterval(stopWatchFunction,1); 
+    intervalId = setInterval(stopWatchFunction,10); 
 })
 
 restartBtn.addEventListener('click',() => {
     clearInterval(intervalId);
     milliSeconds = 0, seconds = 0, minutes = 0, hours = 0;
-    intervalId = setInterval(stopWatchFunction,1); 
+    stopWatch.textContent = '00:00:00';
+    spanTag.textContent = '0';
 })
 
 resetBtn.addEventListener('click',() => {
